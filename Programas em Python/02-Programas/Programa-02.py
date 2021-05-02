@@ -1,6 +1,6 @@
 #CALCULANDO O TOTAL DE SEGUNDOS
 #DESAFIO 2
-print('DESAFIO 02')
+print('*DESAFIO 02*')
 a = int(input("digite a quantidade de dias!"))
 b = int(input("digite a quantidade de horas!"))
 c= int(input("digite a quantidade de minutos! "))
