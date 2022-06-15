@@ -133,3 +133,36 @@ nome5 = input("Participante 05: ")
 participantes = [nome1, nome2, nome3, nome4, nome5]
 escolhodo = choice(participantes)
 print("Parabéns {} você ganhou".format(escolhodo))
+
+#tipos primitivos do quer digitado
+#DESAFIO 14
+a = input("Digite Algo: ")
+print("O tipo primitivo de {}".format(0))
+
+#Numero antecessor e sucessor
+#DESAFIO 0
+n1 = int(input("Digite um número: "))
+n2 = (n1 - 1)
+n3 = (n1 + 1)
+print("Seu antecessor é {} e seu sucessor é {}".format(n2,n3))
+
+# O DOBRO O TRIPLO E A RAIZ QUADRADA
+#DESAFIO 0
+
+n = int(input("Digite um número:"))
+dobro = n * 2
+triplo = n * 3
+raiz = n **  (1/2)
+print("O dobro do n° {} é \n {} o triplo é {} e a raiz é {:.2f} ".format(n,dobro,triplo,raiz)
+
+
+#CONVERSOR DE MEDIKAS KM HM DAM M DM CM MM
+numero = int(input("Digite um número em metros: "))
+km = numero  / 1000
+hm = numero / 100
+dam = numero / 10
+dm = numero * 10
+cm = numero * 100
+mm = numero * 1000
+print("o valor de {} metros em \n  "
+      "km{} hm{} dam{} dm{} cm{} mm{} ".format(numero,km,hm,dam,dm,cm,mm) )
