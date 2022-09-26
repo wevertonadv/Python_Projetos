@@ -1,5 +1,5 @@
-
 # para esperar o elemento
+import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -16,6 +16,15 @@ assert "Unigama" in driver.title
 # maximizando a tela do windows
 driver.maximize_window()
 
+#colocando usuario e senha
+elem = driver.find_element(By.NAME,'username')
+elem.clear()
+elem.send_keys("")
+elem = driver.find_element(By.NAME,'password')
+elem.clear()
+elem.send_keys("")
+elem.send_keys(Keys.RETURN)
+time.sleep(1)
 
 #acessando as unidades
 elementos = driver.find_elements(By.CSS_SELECTOR,'#section-1 ul.section.img-text a.aalink')[:-2]
@@ -43,3 +52,4 @@ print('Lista de erro \n', erro)
 
 
 # se der erro vai aparecer aqui
+
