@@ -1,13 +1,6 @@
-
-#Import da web driver
 from selenium import webdriver
-# Import por exemplo das teclas
 from selenium.webdriver.common.keys import Keys
-
-
-# import do by
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 
 
 navegador = webdriver.Chrome()
@@ -33,4 +26,5 @@ navegador.find_element(By. XPATH,'/html/body/div[2]/div[3]/div/div/div/div/div/d
 navegador.find_element(By. CLASS_NAME, 'btn-secondary').click()
 
 ## Email do aluno
-navegador.find_element(By. CSS_SELECTOR, 'input.form-control').send_keys('teste.ava@gmail.com').send_keys(Keys.ENTER)
+navegador.find_element(By. CSS_SELECTOR, 'input.form-control').send_keys('teste.ava@gmail.com')
+navegador.send_keys(Keys.RETURN)
