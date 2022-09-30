@@ -29,7 +29,7 @@ driver.get('https://ead.unigama.com/user/index.php?id=1068')
 import pandas as pd
 tabela = pd.read_excel('alunos.xlsx')
 
-for i, email in enumerate(tabela["E-mail"]):
+for i, email in enumerate(tabela["Matrícula"]):
     #clicando no botão inscrever usuário
     driver.maximize_window()
     driver.find_element(By.XPATH,'//*[@id="enrolusersbutton-2"]/div/input[1]').click()

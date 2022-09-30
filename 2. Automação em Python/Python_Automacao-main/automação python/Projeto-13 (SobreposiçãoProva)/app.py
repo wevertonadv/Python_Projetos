@@ -1,3 +1,5 @@
+# Mudando a data da prova N1
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -26,5 +28,12 @@ navegador.find_element(By. XPATH,'/html/body/div[2]/div[3]/div/div/div/div/div/d
 navegador.find_element(By. CLASS_NAME, 'btn-secondary').click()
 
 ## Email do aluno
-navegador.find_element(By. CSS_SELECTOR, 'input.form-control').send_keys('teste.ava@gmail.com')
-navegador.send_keys(Keys.RETURN)
+
+email = navegador.find_element(By. CSS_SELECTOR, 'input.form-control').send_keys('teste.ava@gmail.com')
+time.sleep(1)
+
+navegador.find_element(By. CSS_SELECTOR, 'input.form-control').send_keys(Keys.ENTER)
+
+
+
+
