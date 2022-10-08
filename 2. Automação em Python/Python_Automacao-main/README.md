@@ -32,7 +32,7 @@ Selenium:
 
 Dicas para usar o python:
 
- 1. VERIFICAR SE A VERSÃO DO PYTHON É A MAIS ATUALIZADA:
+ 1. VERIFICAR SE A VERSÃO DO PYTHON É A MAIS ATUALIZADA: <br/>
     -Entra no *CMD*; <br/>
     -Digita *python --version* ou *python -V*;
     
