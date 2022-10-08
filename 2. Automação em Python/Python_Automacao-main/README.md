@@ -1,13 +1,13 @@
 # Python_Automacao
- Projetos de automação em python
+ ************************************************************** PROJETOS DE AUTOMAÇÃO EM PYTHON ***************************************************************
  
  Bibliotecas usadas: Pyautogui, Selenium, Time, Pandas <br/>
  
  Framework usados: <br/>
  
  Api usados: <br/>
-
-
+<br/>
+<br/>
                                                  Diferença de Biblioteca, Framework e Api: 
                                                  
 Biblioteca são conjuntos de códigos feitos por terceiros armazenada na internert, lembrando que biblioteca não é uma linguagem de programação, são por exemplo, funções/classes que usamos com muita frequencia, exemplo: A biblioteca math que sempre facilita  quando  quando precisamos, não precisamos de criar sempre uma função, de calcular a raiz quadrada com varias linhas usamos uma linhá que já está pronta da biblioteca math. Normalmente toda biblioteca tem uma documentação para consulta. 
@@ -36,7 +36,7 @@ Selenium:
 
 
 
-Dicas para usar o python:
+                                                             Dicas para usar o python:
 
  1. VERIFICAR SE A VERSÃO DO PYTHON É A MAIS ATUALIZADA: <br/>
     -Entra no *CMD*; <br/>
