@@ -13,11 +13,11 @@ assert "Unigama: Acesso ao site" in driver.title
 #login
 elem = driver.find_element(By.NAME,'username')
 elem.clear()
-elem.send_keys('weverton_machado')
+elem.send_keys('')
 #Preenchendo a senha
 elem = driver.find_element(By.NAME,'password')
 elem.clear()
-elem.send_keys('weverton123@')
+elem.send_keys('')
 #Dando enter
 elem.send_keys(Keys.RETURN)
 
