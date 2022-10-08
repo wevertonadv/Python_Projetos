@@ -15,7 +15,7 @@ Api
                                                  
 Pyautogui, Selenium, Time, Pandas
 
-                                                 Frameworks usados:
+                                                 Frameworks usados: <br/>
                                                  
                                                  Api Usados:
 
@@ -33,7 +33,7 @@ Selenium:
 Dicas para usar o python:
 
  1. VERIFICAR SE A VERSÃO DO PYTHON É A MAIS ATUALIZADA:
-    -Entra no *CMD*;
+    -Entra no *CMD*; <br/>
     -Digita *python --version* ou *python -V*;
     
  2. PARA ATUALIZAR O PYTHON:
