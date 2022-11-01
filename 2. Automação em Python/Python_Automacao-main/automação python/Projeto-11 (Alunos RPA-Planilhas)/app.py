@@ -3,7 +3,7 @@ from selenium.common.exceptions import NoSuchElementException
 from lib2to3.pgen2.token import NAME
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys 
-from selenium.webdriver.common.by import By
+
 import pandas as pd
 
 driver = webdriver.Chrome()

@@ -1,0 +1,18 @@
+#
+https://www.youtube.com/watch?v=C0aj3FjN5e0
+
+1°. A primeira coisa para usar o pandas é usar o import parar trazer todo o código de outras pessoas para nosso ambiente
+
+A chamada padrão é feita apenas assim: import pandas, no entanto nós vamos utilizar da seguinte forma: import pandas as pd. para não usamos o nome completo pandas
+
+Outro ponto importante é entender que o pandas funciona com DataFrames, que nada mais são do que tabelas dentro do Python.
+
+=Dicionario seria uma descrição do que aconteceu.
+
+2° O PANDAS TRABALHA COM DATAFRAMES, DATAFRAMES IGUAL UMA TABELA NO PYTHON SEMPRE DATAFRAMES 
+
+Para criar um dataframe vazio usamos o seguinte comando, mas não vale tanto a pena porque vamos precisar inserir elementos mais tarde
+
+#dataframe = pd.DataFrame()
+
+3° UMA SÉRIE É CADA COLUNA DA TABELA E CADA TABELA É UMA DATAFRAME
