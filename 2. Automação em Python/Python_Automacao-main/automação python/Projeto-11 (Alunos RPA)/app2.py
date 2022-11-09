@@ -1,60 +1,48 @@
 import time
-#para esperar o elemento
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
-from selenium.common.exceptions import TimeoutException 
 from selenium.common.exceptions import NoSuchElementException
-
-
-
+from lib2to3.pgen2.token import NAME
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.keys import Keys 
 from selenium.webdriver.common.by import By
+import pandas as pd
 
 driver = webdriver.Chrome()
-driver.get("https://ead.unigama.com/my/")
-assert "Unigama" in driver.title
+driver.get('https://ead.unigama.com/login/index.php')
+assert "Unigama: Acesso ao site" in driver.title
 
-#maximizando a tela do windows
-driver.maximize_window()
-
-driver.get('https://ead.unigama.com/course/view.php?id=1080')
-
-#dando click no botão ativar edição
-
-time.sleep(2)
-elem = driver.find_element(By.CSS_SELECTOR,'.btn.btn-primary')
-
-elem.click()
-
-# Dando click no botão adicionar uma atividade
-elem = driver.find_element(By.CSS_SELECTOR, '.section-modchooser-text')
-elem.click()
-
-# Dando click no botão adicionar uma atividade
-elem = driver.find_element(By.CSS_SELECTOR, '.section-modchooser-text')
-elem.click()
-time.sleep(1)
-
-elem = driver.find_element(By. XPATH, '/html/body/div[14]/div[2]/div/div/div[2]/div/div/div[1]/div/div[2]/div[2]/div[2]/div/div[9]/div/a/div[1]/img').click()
-
-#Escrevendo Biblioteca Virtual
-driver.find_element(By. ID, 'id_name').send_keys('Biblioteca A')
-
-#Colocando o link
-driver.find_element(By. ID, 'id_toolurl').send_keys('https://bibliotecaa.grupoa.com.br/lti/launch.php')
-
-driver.find_element(By. CSS_SELECTOR,'.btn.btn-primary').click()
-
-time.sleep(1)
+#login
+elem = driver.find_element(By.NAME,'username')
+elem.clear()
+elem.send_keys('weverton_machado')
+#Preenchendo a senha
+elem = driver.find_element(By.NAME,'password')
+elem.clear()
+elem.send_keys('weverton123@')
+#Dando enter
+elem.send_keys(Keys.RETURN)
 
 
-# Apagar a outra biblioteca
-driver.find_element(By. XPATH,'/html/body/div[6]/div[2]/div/div/section/div/div/div/div/ul/li[1]/div[3]/ul/li[6]/div/div/div[2]/div[2]/div/div/div[1]/a').click()
+#acessando a disciplina
+driver.get('https://ead.unigama.com/user/index.php?id=1068')
 
-driver.find_element(By. XPATH, '/html/body/div[6]/div[2]/div/div/section/div/div/div/div/ul/li[1]/div[3]/ul/li[6]/div/div/div[2]/div[2]/div/div/div[1]/div/a[7]').click()
-time.sleep(1)
 
-#Apertando sim
-driver.find_element(By. CSS_SELECTOR, '.modal-footer .btn.btn-primary').click()
+import pandas as pd
+tabela = pd.read_excel('alunos.xlsx')
+
+for i, email in enumerate(tabela["E-mail"]):
+    #clicando no botão inscrever usuário
+    driver.maximize_window()
+    driver.find_element(By.XPATH,'//*[@id="enrolusersbutton-2"]/div/input[1]').click()
+    time.sleep(5)
+
+    #clicando na busca e inserindo o nome
+    elem = driver.find_element(By.CSS_SELECTOR,'.d-md-inline-block.mr-md-2.position-relative .form-control')
+    elem.send_keys(email)
+    time.sleep(5)
+    elem.send_keys(Keys.RETURN)
+
+
+    #dando click no botão inscrever usuários
+    elem = driver.find_element(By.CSS_SELECTOR,'.modal-content .btn-primary').click()
+
+
