@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botões de Ação</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f6f6f6;
+  }
+
+  .botao-container {
+    display: flex;
+    gap: 20px; /* Espaço entre os botões */
+  }
+
+  .botao {
+    display: inline-flex;
+    align-items: center; /* Alinha os itens internos do botão verticalmente */
+    justify-content: center; /* Centraliza o conteúdo do botão horizontalmente */
+    background-color: #ffffff;
+    color: #9341f2;
+    padding: 10px 20px;
+    border: 2px solid #9341f2;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .botao:hover {
+    background-color: #9341f2;
+    color: #ffffff;
+  }
+
+  .opcoes-container {
+    position: relative;
+    display: inline-block;
+  }
+
+  .opcoes {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0; /* Garante que as opções se ajustem ao botão acima */
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  .opcao {
+    padding: 10px;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .opcao:last-child {
+    border-bottom: none;
+  }
+
+  .opcao:hover {
+    background-color: #e4e4e4;
+  }
+
+  .icone {
+    display: inline-block;
+    vertical-align: middle; /* Centraliza verticalmente com o texto */
+    width: auto; /* Mantém a proporção do ícone */
+  }
+
+
+  .icone svg {
+    transform: translateY(15%);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="botao-container">
+  <div class="opcoes-container">
+    <button class="botao" onclick="toggleOptions('opcoes-exportar')">
+      <span class="icone"><!-- Ícone de Exportar SVG --> <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.0797 6.27383C3.0797 6.66132 3.39482 6.97411 3.78231 6.97411C3.96672 6.97411 4.14646 6.89941 4.27717 6.76636L7.84159 3.19727V12.4059C7.8556 12.7748 8.15205 13.0689 8.51853 13.0829C8.90835 13.0969 9.23515 12.7934 9.24916 12.4059V3.19727L12.7576 6.708C12.76 6.71043 12.7621 6.71286 12.7642 6.71519C12.7681 6.71958 12.7717 6.72363 12.7762 6.72668C13.0563 6.99512 13.4998 6.98812 13.7706 6.708C14.0391 6.42789 14.0321 5.98438 13.7519 5.71361L9.04374 1.00073C8.7683 0.727621 8.32479 0.727621 8.04934 1.00073L3.28511 5.7743C3.15439 5.90735 3.0797 6.08709 3.0797 6.27383ZM16.7001 13.0922C16.7001 12.7047 16.385 12.3896 15.9975 12.3896C15.61 12.3896 15.2949 12.7047 15.2972 13.0922V15.7953H1.70248V13.0922C1.68848 12.7234 1.39203 12.4293 1.02555 12.4153C0.635724 12.4013 0.308927 12.7047 0.294922 13.0922V16.4979C0.294922 16.8854 0.610047 17.2005 0.997535 17.2005H15.9975C16.385 17.2005 16.7001 16.8854 16.7001 16.4979V13.0922Z" fill="#660099"/></svg>
+      Exportar
+    </button>
+    <div class="opcoes" id="opcoes-exportar">
+      <div class="opcao">Excel</div>
+      <div class="opcao">CSV</div>
+    </div>
+  </div>
+
+  <div class="opcoes-container">
+    <button class="botao" onclick="toggleOptions('opcoes-ordenar')">
+      <span class="icone"><!-- Ícone de Ordenar SVG --> <svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.73823 9.02557H3.80779C3.25457 9.02557 2.8064 8.57739 2.8064 8.02417L2.80406 5.60587L1.28446 5.5942C1.03936 5.5942 0.822274 5.45415 0.714897 5.23006C0.607521 5.00363 0.640201 4.73052 0.798931 4.53678C0.808268 4.52511 0.817605 4.51344 0.829276 4.5041L4.30733 0.99804C4.41003 0.881326 4.55009 0.808964 4.70415 0.79029C4.86988 0.771616 5.03562 0.815967 5.16634 0.921009C5.19668 0.944352 5.22236 0.970028 5.24803 0.99804L8.70974 4.5041C8.72142 4.51577 8.73075 4.52744 8.74009 4.53911C8.89649 4.73286 8.92916 5.00597 8.82179 5.23239C8.71441 5.45648 8.49733 5.5942 8.25456 5.59654L6.73729 5.60821L6.73963 8.02417C6.73963 8.57505 6.29145 9.02557 5.73823 9.02557ZM9.83019 17.0834C9.9469 17.1745 10.0846 17.2188 10.22 17.2188C10.3951 17.2188 10.5678 17.1465 10.6915 17.0064L14.1719 13.498C14.1836 13.4887 14.1929 13.477 14.2023 13.4653C14.361 13.2716 14.3937 12.9985 14.2863 12.7721C14.1789 12.548 13.9618 12.4079 13.7167 12.4079L12.1948 12.3962L12.1925 9.97561C12.1925 9.42239 11.7443 8.97421 11.1911 8.97421H9.2583C8.70508 8.97421 8.2569 9.42239 8.2569 9.97561L8.25923 12.3892L6.73963 12.4032C6.49686 12.4056 6.27978 12.5433 6.1724 12.7674C6.06503 12.9938 6.09771 13.2669 6.2541 13.4607C6.26344 13.4723 6.27278 13.484 6.28445 13.4957L9.74849 17.0064C9.77417 17.0344 9.79985 17.0601 9.83019 17.0834ZM10.22 16.1544L7.43757 13.3346L8.56502 13.3253H8.57436C8.9245 13.3159 9.19994 13.0242 9.19527 12.6764L9.1906 9.97561C9.1906 9.93826 9.22095 9.90792 9.2583 9.90792H11.1911C11.2284 9.90792 11.2588 9.93826 11.2588 9.97561L11.2611 12.6764C11.2564 13.0265 11.5342 13.3159 11.8843 13.3253H11.8937L13.0188 13.3346L10.22 16.1544ZM3.7401 8.02183C3.7401 8.05918 3.77045 8.08953 3.80779 8.08953H5.73823C5.77558 8.08953 5.80592 8.05918 5.80592 8.02183L5.80359 5.32343C5.79892 4.97562 6.07436 4.68384 6.4245 4.6745H6.43384L7.55895 4.66517L4.77885 1.84771L1.98474 4.66517L3.10752 4.6745H3.11685C3.46699 4.68384 3.74244 4.97562 3.73777 5.32343L3.7401 8.02183Z" fill="#660099"/>
+        </svg>
+        
+      Ordenar
+    </button>
+    <div class="opcoes" id="opcoes-ordenar">
+      <div class="opcao">Menor preço</div>
+      <div class="opcao">Maior preço</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function toggleOptions(optionsId) {
+    var opcoes = document.getElementById(optionsId);
+    var isDisplayed = opcoes.style.display === 'block';
+    closeAllOptions(); // Fecha todas as opções antes de abrir a nova
+    opcoes.style.display = isDisplayed ? 'none' : 'block';
+  }
+
+  function closeAllOptions() {
+    document.querySelectorAll('.opcoes').forEach(function(opcoes) {
+      opcoes.style.display = 'none';
+    });
+  }
+
+  window.onclick = function(event) {
+    if (!event.target.matches('.botao') && !event.target.matches('.icone')) {
+      closeAllOptions();
+    }
+  }
+</script>
+
+</body>
+</html>

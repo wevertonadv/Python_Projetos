@@ -1,0 +1,73 @@
+<style>
+.container {
+    max-width: 100%; /* container */
+    margin-left: auto; /* mx-auto */
+    margin-right: auto; /* mx-auto */
+    padding-left: 2rem; /* px-8 */
+    padding-right: 2rem; /* px-8 */
+    padding-top: 5rem; /* py-20 */
+}
+h1 {
+    font-size: 40px; /* estilo inline */
+    font-weight: bold; /* font-bold */
+    color: #660099; /* text-purple-700 */
+}
+.bg-dark-purple {
+    
+    color: white; /* text-white */
+}
+/* Estilo base para todos os links */
+a {
+    position: relative; /* Necessário para posicionar o pseudo-elemento */
+    color: #a0aec0; /* Cor do texto para links não selecionados */
+    padding: 10px 12px; /* Espaçamento interno */
+    text-decoration: none; /* Remove o sublinhado padrão */
+    font-size: 20px
+}
+
+/* Estilo para a linha sob todos os links */
+a::after {
+    content: ''; /* Conteúdo vazio para o pseudo-elemento */
+    position: absolute; /* Posicionamento absoluto dentro do link */
+    bottom: 0; /* Alinhado à parte inferior do link */
+    left: 0; /* Alinhado à esquerda do link */
+    width: 100%; /* Largura completa do link */
+    height: 2px; /* Altura da linha */
+    background: transparent; /* Inicialmente transparente */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+}
+
+/* Estilo para o link atual/selecionado */
+a[aria-current="page"] {
+    color: black; /* Cor do texto para o link selecionado */
+    font-weight: medium; /* Peso da fonte para o link selecionado */
+}
+
+/* Estilo para a linha sob o link atual/selecionado */
+a[aria-current="page"]::after {
+    background: #9f7aea; /* Cor de fundo roxa para o sublinhado do link selecionado */
+}
+
+/* Estilo para o hover nos links */
+a:hover::after {
+    background: #9f7aea; /* Cor de fundo roxa para o sublinhado ao passar o mouse */
+}
+
+
+</style>
+
+<div class="container">
+    <h1 class="h1">Recomendação de preços</h1>
+</div>
+<!-- Tabs and actions -->
+<div class="bg-dark-purple">
+    <div class="container">
+        <div class="flex justify-between items-center" >
+            <a href="produtos.html" class="a" aria-current="page">Produtos</a>
+            <a href="#" class="a">Competitividade</a>
+            <a href="#" class="a">Atualizações</a>
+            <a href="#" class="a">Histórico de preço</a>
+            <a href="#" class="a">Cadastro</a>
+        </div>
+    </div>
+</div>

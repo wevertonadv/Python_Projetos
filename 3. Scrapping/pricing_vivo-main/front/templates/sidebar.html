@@ -1,0 +1,110 @@
+<style>
+    .sidebar {
+        
+        background-color: white; /* bg-white */
+        color: #1a202c; /* text-gray-900 */
+        width: 256px; /* w-64 */
+        gap: 24px; /* space-y-6 */
+        padding-bottom: 28px; /* py-7 */
+        padding-left: 8px; /* px-2 */
+        padding-right: 8px; /* px-2 */
+        position: relative; /* relative */
+        top: 0; /* inset-y-0 */
+        bottom: 0; /* inset-y-0 */
+        left: 0; /* left-0 */
+        transform: translateX(-0%); /* -translate-x-full */
+        transition: transform 200ms ease-in-out; /* transition duration-200 ease-in-out */
+        box-shadow: 0px 0px 0px 0 rgba(0, 0, 0, 0.1); /*4px 4px 8px 0 rgba(0, 0, 0, 0.1);*/
+    }
+    .logo {
+        display: flex;
+        justify-content: center; /* Adiciona centralização horizontal */
+        align-items: center;
+        gap: 8px;
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-bottom: 16px;
+        padding-top: 16px;
+    }
+    .logo-text {
+        color: #7920a6; /* text-purple-800 */
+        font-size: 2rem; /* text-2xl */
+        font-weight: 800; /* font-extrabold */
+      
+    }
+
+    .search-box {
+        background-color: #7920a6; /* bg-purple-800 */
+        color: #4a5568; /* text-grey-700 (Assumindo um pequeno erro de digitação em 'text-grey=700') */
+        border-radius: 0.375rem; /* rounded-md */
+        display: flex; /* flex */
+        align-items: center; /* items-center */
+        
+    }
+    .search {
+        width: 100%; /* w-full */
+        padding-left: 1rem; /* px-4 */
+        padding-right: 1rem; /* px-4 */
+        padding-top: 0.5rem; /* py-2 */
+        padding-bottom: 0.5rem; /* py-2 */
+        background-color: white; /* bg-white */
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); /* shadow-sm */
+        border-top: 0; /* border-t-0 */
+        border-radius: 0.375rem; /* rounded-md */
+        border-bottom-left-radius: 0.375rem; /* rounded-b */
+        border-bottom-right-radius: 0.375rem; /* rounded-b */
+        outline: none; /* focus:outline-none */
+    }
+    .h3 {
+        font-size: 1.125rem; /* text-lg */
+        font-weight: 600; /* font-semibold */
+        margin-bottom: 0.5rem; /* mb-2 */
+    }
+</style>
+<div class="sidebar">
+    <!-- Logo -->
+    <div class="logo">
+        <span class="logo-text">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.2"
+                    d="M43.7186 0H4.28145C1.91687 0 0 1.91687 0 4.28145V43.7186C0 46.0831 1.91687 48 4.28145 48H43.7186C46.0831 48 48 46.0831 48 43.7186V4.28145C48 1.91687 46.0831 0 43.7186 0Z"
+                    fill="white" />
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M29.7616 14.5977C29.7616 15.6626 29.3736 17.3245 28.1673 18.4974C27.7431 18.9099 27.3758 19.1575 27.0813 19.3421C26.5142 19.6986 26.1042 19.9469 26.3326 20.5428C26.5572 21.1282 27.2576 20.9467 27.9202 20.801C28.1336 20.7516 32.2937 19.7833 32.3461 19.7811C33.4634 19.5759 34.5428 20.2634 34.8047 21.3266C34.8059 21.3307 35.1386 22.682 35.1417 22.6939C35.4052 23.7571 34.7648 24.8467 33.6738 25.1578C33.6269 25.1781 29.0811 26.2411 29.0732 26.2429C28.2101 26.4569 27.7049 26.8733 27.7049 27.6828C27.7049 28.0448 27.9202 28.4379 28.1856 28.764C28.1856 28.764 33.1243 34.7166 33.15 34.7625C33.8223 35.654 33.6507 36.8978 32.7771 37.5866C32.774 37.5895 31.6647 38.4645 31.6538 38.472C30.7818 39.1616 29.495 39.0704 28.7358 38.2474C28.6966 38.2152 25.6291 34.549 25.3037 34.16C24.9782 33.7715 24.5689 33.1798 24.0004 33.1798C23.4332 33.1798 23.0241 33.7715 22.698 34.16C22.3729 34.549 19.3047 38.2152 19.2663 38.2474C18.5065 39.0704 17.2201 39.1616 16.3472 38.472C16.3377 38.4645 15.2274 37.5895 15.2243 37.5866C14.3515 36.8978 14.1797 35.654 14.8515 34.7625C14.8766 34.7166 19.816 28.764 19.816 28.764C20.0808 28.4379 20.2968 28.0448 20.2968 27.6828C20.2968 26.8733 19.7924 26.4569 18.928 26.2429C18.9202 26.2411 14.3746 25.1781 14.328 25.1578C13.2373 24.8467 12.5968 23.7571 12.8596 22.6939C12.8623 22.682 13.1959 21.3307 13.1969 21.3266C13.459 20.2634 14.5378 19.5759 15.6555 19.7811C15.7079 19.7833 19.8675 20.7516 20.0808 20.801C20.7447 20.9467 21.4446 21.1282 21.669 20.5428C21.8974 19.9469 21.4874 19.6986 20.9207 19.3421C20.626 19.1575 20.2584 18.9099 19.8345 18.4974C18.6279 17.3245 18.2395 15.6626 18.2395 14.5977C18.2395 11.5432 20.8592 9.06641 24.0004 9.06641C27.1421 9.06641 29.7616 11.5432 29.7616 14.5977Z"
+                    fill="#660099" /><!-- Logo Vivo -->
+            </svg>
+        </span>
+    </div>
+
+    <!-- Search box -->
+    <div class="search-box">
+        <input type="search" placeholder="O que você procura?" class="search">
+        <button class="px-1">
+            <svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M9.28419 14.6645C5.52863 14.6645 2.48438 11.8545 2.48438 8.38779C2.48438 6.72281 3.20053 5.12729 4.47504 3.94858C7.17457 1.53737 11.4788 1.60236 14.0909 4.092C16.5307 6.41687 16.6397 10.0486 14.4179 12.4902L19.3613 17.0533C19.5507 17.2281 19.5507 17.5127 19.3613 17.6875C19.2666 17.7727 19.1453 17.8197 19.0166 17.8197C18.8879 17.8197 18.7641 17.7727 18.6743 17.6875L13.7373 13.1303C12.5073 14.1195 10.9259 14.6686 9.28419 14.6645ZM9.28419 3.0074C6.06514 3.0074 3.45543 5.41636 3.45543 8.38779C3.45543 9.81524 4.06962 11.1822 5.16206 12.1928C7.44647 14.2858 11.1389 14.2724 13.4063 12.1637C15.6616 10.0662 15.6616 6.68247 13.4063 4.58499C12.3139 3.56987 10.8306 3.00292 9.28419 3.0074Z"
+                    fill="white" />
+            </svg>
+
+        </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <!-- Filtros do sidebar -->
+      <div class="mt-4">
+          <h3 class="h3">FILTRAR POR:</h3>
+
+          <!-- Campo de seleção de data -->
+          <div class="mb-4">
+              <div class="w-full justify-between items-center bg-white border border-t-0 rounded-b text-white px-4 py-2 rounded-t">
+                  <label for="data" class="block text-sm font-medium text-gray-700">Selecione o período</label>
+                  <input type="date" id="data" name="data"
+                      class="mt-1 block w-full rounded-md border-gray-800 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 text-gray-700">
+              </div>
+          </div>
+
+        <!-- Seção de Categorias -->
+      <div id="categorias-container"></div>
+    </nav>
+</div>

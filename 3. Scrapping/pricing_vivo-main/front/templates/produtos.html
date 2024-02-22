@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Recomendação de Preços</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Correção para o overflow no eixo Y */
+            @media (min-width: 1024px) {
+                body,
+                html,
+                #root,
+                main {
+                    overflow-y: auto;
+                }
+            }
+            .body {
+                background-color: #f7fafc; /* bg-gray-100 */
+                font-family: 'Sans', sans-serif; /* font-sans */
+                line-height: normal; /* leading-normal */
+                letter-spacing: normal; /* tracking-normal */
+            }
+            .entire-layout {
+                display: flex; /* flex */
+                height: 100vh; /* h-screen */
+                background-color: #f7fafc; /* bg-gray-100 */
+            }
+            .main-area {
+                flex: 1; /* flex-1 */
+                display: flex; /* flex */
+                flex-direction: column; /* flex-col */
+                overflow: hidden; /* overflow-hidden */
+            }
+            .main-content {
+                flex: 1; /* flex-1 */
+                overflow-x: hidden; /* overflow-x-hidden */
+                overflow-y: auto; /* overflow-y-auto */
+                background-color: white; /* bg-white */
+                padding-left: 8px; /* px-8 */
+                padding-right: 8px; /* px-8 */
+            }
+            .product-table {
+                max-width: 100%; /* container */
+                margin-left: auto; /* mx-auto */
+                margin-right: auto; /* mx-auto */
+                padding-left: 8px; /* px-8 */
+                padding-right: 8px; /* px-8 */
+                padding-top: 8px; /* py-8 */
+                padding-bottom: 8px; /* py-8 */
+                background-color: white; /* bg-white */
+                border-radius: var(--rounded-size); /* rounded */
+                margin-top: 6px; /* my-6 */
+                margin-bottom: 6px; /* my-6 */
+            }
+            .button {
+                color: #7920a6; /* Cor do texto */
+                background-color: transparent; /* Cor de fundo */
+                border: 2px solid #7920a6; /* Borda */
+                padding: 10px 20px; /* Espaçamento interno */
+                border-radius: 5px; /* Arredondamento das bordas */
+                font-size: 0.875rem; /* Tamanho da fonte */
+                font-weight: 500; /* Peso da fonte */
+                margin-right: 8px; /* Margem à direita */
+                cursor: pointer; /* Cursor ao passar o mouse */
+                transition: background-color 0.3s, color 0.3s; /* Transição de cor e fundo */
+            }
+            .table {
+                text-align: left; /* text-left */
+                width: 100%; /* w-full */
+                border-collapse: collapse; /* border-collapse */
+                margin-top: 15px; /* estilo inline */
+                border-radius: 8px; /* estilo inline */
+                overflow: hidden; /* estilo inline */
+            }
+            .thead {
+                background-color: #7920a6; /* bg-purple-800 */
+                color: white; /* text-white */
+            }
+
+            .th {
+                padding: 16px 24px; /* py-4 px-6 */
+                background-color: #7920a6; /* bg-grey-lightest */
+                font-weight: bold; /* font-bold */
+                text-transform: uppercase; /* uppercase */
+                font-size: 0.875rem; /* text-sm */
+                color: #e2e8f0; /* text-grey-dark */
+                border-bottom: 1px solid #e2e8f0; /* border-b border-grey-light */
+                text-align: center; /* text-center */
+                border-right: 1px solid #e2e8f0; /* border-r */
+            }
+            .tbody {
+                background-color: white; /* bg-white */
+            }
+            .tr:hover {
+                background-color: #f7fafc; /* hover:bg-grey-lighter */
+            }
+            .td {
+                padding: 16px 24px; /* py-4 px-6 */
+                border-bottom: 1px solid #e2e8f0; /* border-b border-grey-light */
+                text-align: center; /* text-center */
+                border-right: 1px solid #e2e8f0; /* border-r */
+            }
+            .link {
+                color: #805ad5; /* text-purple-600 */
+            }
+            .link:hover {
+                color: #553c9a; /* hover:text-purple-900 */
+            }
+            .pagination {
+                padding-bottom: 10px; /* Estilo inline */
+            }
+            .pagination-container {
+                display: flex; /* flex */
+                align-items: center; /* items-center */
+                gap: 0.5rem; /* space-x-2 */
+                text-align: right; /* estilo inline */
+                justify-content: flex-end; /* estilo inline */
+                padding-bottom: 10px; /* estilo inline */
+            }
+
+            .pagination-circle {
+                width: 32px; /* w-8 */
+                height: 32px; /* h-8 */
+                border-radius: 50%; /* rounded-full */
+                display: flex;
+                align-items: center; /* items-center */
+                justify-content: center; /* justify-center */
+                margin-left: 4px; /* mx-1 */
+                margin-right: 4px; /* mx-1 */
+                outline: none; /* focus:outline-none */
+            }
+
+            .pagination-circle.active {
+                background-color: #7C3AED;
+                color: white;
+            }
+
+            .pagination-circle:hover:not(.active) {
+                background-color: #EDE9FE;
+                color: #7C3AED;
+            }
+            .toggle-categories {
+                width: 100%; /* w-full */
+                display: flex; /* flex */
+                justify-content: space-between; /* justify-between */
+                align-items: center; /* items-center */
+                background-color: white; /* bg-white */
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); /* shadow-sm */
+                border-top: 0; /* border-t-0 */
+                border-bottom-left-radius: 0.375rem; /* rounded-b */
+                border-bottom-right-radius: 0rem; /* rounded-b */
+                border-top-left-radius: 0.375rem; /* rounded-t */
+                border-top-right-radius:0rem; /* rounded-t */
+                padding-left: 1rem; /* px-4 */
+                padding-right: 1rem; /* px-4 */
+                padding-top: 0.5rem; /* py-2 */
+                padding-bottom: 0.5rem; /* py-2 */
+            }
+            .toggle-categories-categories {
+                width: 90%; /* Largura total */
+                display: flex; /* Disposição em flex */
+                justify-content: space-between; /* Espaçamento entre itens */
+                align-items: center; /* Alinhamento dos itens ao centro verticalmente */
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); /* Sombra leve para dar profundidade */
+                border-top: 0; /* Sem borda superior */
+                border-bottom-left-radius: 0.375rem; /* rounded-b */
+                border-bottom-right-radius: 0rem; /* rounded-b */
+                border-top-left-radius: 0.375rem; /* rounded-t */
+                border-top-right-radius:0rem; /* rounded-t */
+                padding-left: 2rem; /* Espaçamento interno à esquerda */
+                padding-right: 1rem; /* Espaçamento interno à direita */
+                padding-top: 0.5rem; /* Espaçamento interno no topo */
+                padding-bottom: 0.5rem; /* Espaçamento interno na base */
+                font-size: 1rem; /* Ajuste do tamanho da fonte para combinar com a imagem */
+                font-weight: 600; /* Peso da fonte para torná-la mais notável */
+                color: #0b2739; /* Cor do texto mais escuro para contraste */
+                cursor: pointer; /* Altera o cursor para indicar interatividade */
+                transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave para hover */
+                background-color: #f6f6f6;
+                margin-left: 10%;
+                box-sizing: border-box;
+            }
+            
+            .toggle-categories-categories:hover {
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3); /* Sombra mais proeminente no hover */
+                background-color: #f9f9f9; /* Cor de fundo ligeiramente diferente no hover */
+            }
+            .toggle-verticals {
+                width: 80%; /* Largura total */
+                display: flex; /* Disposição em flex */
+                justify-content: space-between; /* Espaçamento entre itens */
+                align-items: center; /* Alinhamento dos itens ao centro verticalmente */
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.25); /* Sombra leve para dar profundidade */
+                border-top: 0; /* Sem borda superior */
+                border-bottom-left-radius: 0.375rem; /* rounded-b */
+                border-bottom-right-radius: 0rem; /* rounded-b */
+                border-top-left-radius: 0.375rem; /* rounded-t */
+                border-top-right-radius:0rem; /* rounded-t */
+                padding-left: 2rem; /* Espaçamento interno à esquerda */
+                padding-right: 1rem; /* Espaçamento interno à direita */
+                padding-top: 0.5rem; /* Espaçamento interno no topo */
+                padding-bottom: 0.5rem; /* Espaçamento interno na base */
+                font-size: 0.8rem; /* Ajuste do tamanho da fonte para combinar com a imagem */
+                font-weight: 600; /* Peso da fonte para torná-la mais notável */
+                color: #0b2739; /* Cor do texto mais escuro para contraste */
+                cursor: pointer; /* Altera o cursor para indicar interatividade */
+                transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave para hover */
+                background-color: #c5c5c5;
+                margin-left: 20%;
+                box-sizing: border-box;
+            }
+            
+            .toggle-verticals:hover {
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3); /* Sombra mais proeminente no hover */
+                background-color: #c9c9c9; /* Cor de fundo ligeiramente diferente no hover */
+            }
+
+            .subcategories {
+                width: 70%; /* Largura total */
+                display: flex; /* Disposição em flex */
+                justify-content: space-between; /* Espaçamento entre itens */
+                flex-direction: column; /* Isso garante que os filhos sejam empilhados verticalmente */
+                align-items: flex-start; /* Alinha os itens ao início da coluna flexbox */
+                padding-left: 2rem; /* Espaçamento interno à esquerda */
+                padding-right: 1rem; /* Espaçamento interno à direita */
+                padding-top: 0.5rem; /* Espaçamento interno no topo */
+                padding-bottom: 0.5rem; /* Espaçamento interno na base */
+                font-size: 0.7rem; /* Ajuste do tamanho da fonte para combinar com a imagem */
+                font-weight: 600; /* Peso da fonte para torná-la mais notável */
+                color: #0b2739; /* Cor do texto mais escuro para contraste */
+                cursor: pointer; /* Altera o cursor para indicar interatividade */
+                transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave para hover */
+                margin-left: 30%;
+                
+            }
+            
+            .toggle-categories-categories:hover {
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3); /* Sombra mais proeminente no hover */
+                background-color: #f9f9f9; /* Cor de fundo ligeiramente diferente no hover */
+            }
+            .categories-content {
+                background-color: white; /* bg-white */
+                border-top: 0; /* border-t-0 */
+                border-bottom-left-radius: 0.375rem; /* rounded-b */
+                border-bottom-right-radius: 0.375rem; /* rounded-b */
+            }
+            .categories-division {
+                display: flex; /* flex */
+                justify-content: space-between; /* justify-between */
+                align-items: center; /* items-center */
+            }
+        
+            .categories-label {
+                display: block; /* block */
+                color: #4a5568; /* text-gray-700 */
+                font-size: 0.875rem; /* text-sm */
+                font-weight: bold; /* font-bold */
+                margin-bottom: 0.5rem; /* mb-2 */
+            }
+            .subcategories-selectall {
+                font-size: 1rem; /* text-sm */
+                color: #805ad5; /* text-purple-600 */
+                cursor: pointer; /* cursor-pointer */
+            }
+        
+            .subcategories-selectall:hover {
+                color: #6b46c1; /* hover:text-purple-800 */
+            }
+        
+            
+            .subcategoria-item {
+                display: block;
+                padding: 8px;
+                border-bottom: 1px solid #e2e8f0; /* linha divisória entre subcategorias */
+                margin-bottom: 10px;
+            }
+            
+            .subcategoria-label {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+            }
+            
+            .subcategoria-checkbox {
+                margin-right: 10px; /* espaço entre o checkbox e o texto */
+                cursor: pointer;
+            }
+            .subcategoria-checkbox-caracteristicas {
+                display: flex; /* Disposição em flex */
+                justify-content: space-between; /* Espaçamento entre itens */
+                flex-direction: column; /* Isso garante que os filhos sejam empilhados verticalmente */
+                align-items: left; /* Alinha os itens ao início da coluna flexbox */
+                padding-left: 2rem; /* Espaçamento interno à esquerda */
+                padding-right: 1rem; /* Espaçamento interno à direita */
+                padding-top: 0.5rem; /* Espaçamento interno no topo */
+                padding-bottom: 0.5rem; /* Espaçamento interno na base */
+                font-size: 0.7rem; /* Ajuste do tamanho da fonte para combinar com a imagem */
+                font-weight: 600; /* Peso da fonte para torná-la mais notável */
+                color: #0b2739; /* Cor do texto mais escuro para contraste */
+                cursor: pointer; /* Altera o cursor para indicar interatividade */
+                transition: background-color 0.3s, box-shadow 0.3s; /* Transição suave para hover */
+                margin-left: 25%;
+            }
+            
+        </style>
+        
+
+    </head>
+
+    <body class="body">
+
+        <!-- Container for the entire layout -->
+        <div class="entire-layout">
+            <!-- Inclua o FontAwesome para os ícones -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+            <!-- Sidebar -->
+            <div id="sidebar-container"></div>
+            <script>
+                window.onload = function() {
+                    fetch('sidebar.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            carregarEProcessarJSON().then(({htmlFiltrosCategorias, htmlFiltrosCaracteristicas}) => {
+                                document.getElementById('sidebar-container').innerHTML = data + htmlFiltrosCategorias + htmlFiltrosCaracteristicas;
+                                adicionarEventListeners(); // Adiciona event listeners após o HTML ser inserido
+                                transformarTextoParaTitleCase(); // Transforma o texto para title case após adicionar o HTML ao DOM
+                                adicionarListenersFiltros();
+                            });
+                        });
+                };
+                
+                
+
+                function carregarEProcessarJSON() {
+                    return fetch('tabela_vivo.json')
+                        .then(response => response.json())
+                        .then(dados => {
+                            let {categorias, cores} = processarDados(dados);
+                            let htmlFiltrosCategorias = gerarHtmlFiltros(categorias);
+                            let htmlFiltrosCaracteristicas = gerarHtmlFiltroCaracteristicas(cores);
+                
+                            return {htmlFiltrosCategorias, htmlFiltrosCaracteristicas};
+                        })
+                        .catch(error => {
+                            console.error('Erro ao carregar o JSON:', error);
+                            return {htmlFiltrosCategorias: '', htmlFiltrosCaracteristicas: ''};
+                        });
+                }
+                
+                function processarDados(dados) {
+                    let categorias = {};
+                    let cores = new Set();
+
+                    dados.forEach(item => {
+                        let categoria = item.CATEGORIA;
+                        let vertical = item.VERTICAL;
+                        let subcategoria = item.SUBCATEGORIA_GERENCIAL;
+
+                        if (!categorias[categoria]) {
+                            categorias[categoria] = {};
+                        }
+                        if (!categorias[categoria][vertical]) {
+                            categorias[categoria][vertical] = new Set();
+                        }
+                        categorias[categoria][vertical].add(subcategoria);
+
+                        // Adicionar cor ao conjunto de cores
+                        let cor = item.Cor;
+                        cores.add(cor);
+                    });
+                    return {categorias, cores};
+                }
+
+                function gerarHtmlFiltros(categorias) {
+                    let html = `<div class="mb-4">
+                        <button class="toggle-categories">Categorias
+                            <span class="toggle-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.1689 8.1228H9.80079V0.828529C9.80079 0.433594 9.5 0.03125 8.99609 0.03125C8.51562 0.03125 8.19395 0.429688 8.19395 0.828529V8.1902H0.828522C0.344457 8.21581 -0.0243548 8.56589 0.00125706 9.04739C0.0243078 9.49304 0.382874 9.78403 0.828522 9.80708H8.12535V17.1715C8.15096 17.6556 8.56588 18.0244 9.04738 17.9988C9.49303 17.9757 9.8516 17.6171 9.87465 17.1715V9.87466H17.1715C17.6555 9.84904 18.0244 9.43413 17.9987 8.95263C17.9731 8.50442 17.6171 8.14841 17.1689 8.1228Z" fill="#0B2739"/>
+                            </svg></span>
+                        </button>
+                        <div class="categories-container hidden">`;
+                        
+                
+                    for (let categoria in categorias) {
+                        html += `
+                            <div class="categoriaItem">
+                                <button class="toggle-categories-categories">${categoria}
+                                    <span class="toggle-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M17.1689 8.1228H9.80079V0.828529C9.80079 0.433594 9.5 0.03125 8.99609 0.03125C8.51562 0.03125 8.19395 0.429688 8.19395 0.828529V8.1902H0.828522C0.344457 8.21581 -0.0243548 8.56589 0.00125706 9.04739C0.0243078 9.49304 0.382874 9.78403 0.828522 9.80708H8.12535V17.1715C8.15096 17.6556 8.56588 18.0244 9.04738 17.9988C9.49303 17.9757 9.8516 17.6171 9.87465 17.1715V9.87466H17.1715C17.6555 9.84904 18.0244 9.43413 17.9987 8.95263C17.9731 8.50442 17.6171 8.14841 17.1689 8.1228Z" fill="#0B2739"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <div class="categories-content hidden">`;
+                
+                        for (let vertical in categorias[categoria]) {
+                            html += `
+                                <div class="verticalContainer">
+                                    <button class="toggle-verticals">${vertical}
+                                    </button>
+                                    <div class="subcategories select-all-container">
+                                        <label class="subcategoria-label">
+                                            <input type="checkbox" class="subcategoria-checkbox" value="${categoria} - ${vertical} - ALL" onclick="selectAll(this, '${vertical}')" />Selecionar Todos
+                                        </label>
+                                    </div>`;
+                        
+                            categorias[categoria][vertical].forEach(subcategoria => {
+                                html += `
+                                    <div class="subcategories">
+                                        <label class="subcategoria-label">
+                                            <input type="checkbox" class="subcategoria-checkbox" value="${categoria} - ${vertical} - ${subcategoria}">${subcategoria}
+                                        </label>
+                                    </div>`;
+                            });
+                        
+                            html += '</div>';
+                        }
+                
+                        html += '</div></div>';
+                    }
+                
+                    html += `</div></div>`;
+
+                    // Depois de gerar o HTML dos filtros, transforme o texto para title case.
+                    transformarTextoParaTitleCase();
+
+                    return html;
+                }
+
+                function gerarHtmlFiltroCaracteristicas(cores) {
+                    let html = `<div class="mb-4">
+                        <button class="toggle-categories">Características
+                            <span class="toggle-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.1689 8.1228H9.80079V0.828529C9.80079 0.433594 9.5 0.03125 8.99609 0.03125C8.51562 0.03125 8.19395 0.429688 8.19395 0.828529V8.1902H0.828522C0.344457 8.21581 -0.0243548 8.56589 0.00125706 9.04739C0.0243078 9.49304 0.382874 9.78403 0.828522 9.80708H8.12535V17.1715C8.15096 17.6556 8.56588 18.0244 9.04738 17.9988C9.49303 17.9757 9.8516 17.6171 9.87465 17.1715V9.87466H17.1715C17.6555 9.84904 18.0244 9.43413 17.9987 8.95263C17.9731 8.50442 17.6171 8.14841 17.1689 8.1228Z" fill="#0B2739"/>
+                            </svg></span>
+                        </button>
+                        <div class="categories-container hidden">`;
+
+                    html += `<div class="mb-4">
+                        <button class="toggle-categories-categories">Cores
+                            <span class="toggle-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.1689 8.1228H9.80079V0.828529C9.80079 0.433594 9.5 0.03125 8.99609 0.03125C8.51562 0.03125 8.19395 0.429688 8.19395 0.828529V8.1902H0.828522C0.344457 8.21581 -0.0243548 8.56589 0.00125706 9.04739C0.0243078 9.49304 0.382874 9.78403 0.828522 9.80708H8.12535V17.1715C8.15096 17.6556 8.56588 18.0244 9.04738 17.9988C9.49303 17.9757 9.8516 17.6171 9.87465 17.1715V9.87466H17.1715C17.6555 9.84904 18.0244 9.43413 17.9987 8.95263C17.9731 8.50442 17.6171 8.14841 17.1689 8.1228Z" fill="#0B2739"/>
+                            </svg></span>
+                        </button>
+                        <div class="categories-container hidden">`;
+                    html += '<div class="filtro-cores">';
+                    html +=     `<div class="select-all-container">
+                                    <label class="subcategoria-label">
+                                        <input type="checkbox" class="subcategoria-checkbox-caracteristicas" value="cor - ALL" onclick="selectAll(this, 'cores')" />Selecionar Todos
+                                    </label>
+                                </div>`;
+                    cores.forEach(cor => {
+                        html += `
+                            <label class="subcategoria-label">
+                                <input type="checkbox" class="subcategoria-checkbox-caracteristicas" value="cor - ${cor}">${cor}
+                            </label>`;
+                    });
+                    html += '</div>';
+                    return html;
+                }
+
+                function transformarTextoParaTitleCase() {
+                    // Seleciona todos os botões e labels que possuem texto para transformar
+                    document.querySelectorAll('.toggle-categories-categories, .toggle-verticals, .subcategoria-label').forEach(function(element) {
+                        // Itera sobre todos os nós filhos do elemento
+                        element.childNodes.forEach(function(node) {
+                            // Assegura que o nó é de fato um nó de texto
+                            if (node.nodeType === Node.TEXT_NODE) {
+                                // Transforma o texto para minúsculas e capitaliza a primeira letra de cada palavra
+                                node.nodeValue = node.nodeValue.toLowerCase().replace(/(^|\s|\p{P})\p{L}/gu, function(char) {
+                                    return char.toUpperCase();
+                                });
+                            }
+                        });
+                    });
+                }
+                
+
+                function adicionarEventListeners() {
+                    document.querySelectorAll('.toggle-categories, .toggle-categories-categories, .toggle-verticals').forEach(button => {
+                        button.addEventListener('click', function() {
+                            toggleCategories(this);
+                        });
+                    });
+                }
+                function toggleCategories(button) {
+                    var content = button.nextElementSibling;
+                    content.classList.toggle('hidden');
+                    button.querySelector('.toggle-icon').classList.toggle('rotate-45');
+                }
+                
+                function selectAll(checkbox, type) {
+                    let checkboxes;
+                    if (type === 'cores') {
+                        checkboxes = document.querySelectorAll('.filtro-cores .subcategoria-checkbox, .subcategoria-checkbox-caracteristicas');
+                    } else {
+                        var verticalContainer = checkbox.closest('.verticalContainer');
+                        checkboxes = verticalContainer.querySelectorAll('.subcategoria-checkbox, .subcategoria-checkbox-caracteristicas');
+                    }
+                    checkboxes.forEach(box => {
+                        box.checked = checkbox.checked;
+                    });
+                    
+                }
+            </script>
+              
+            <!-- Main content area -->
+            <div class="main-area">
+
+                <!-- Main content -->
+                <main class="main-content">
+                    <div id="header-container"></div>
+
+                    <!-- Product table -->
+                    <div class="product-table">
+                        <div style="text-align: right;"> <!-- Reduz a margem inferior dos botões para elevá-los acima da tabela -->
+                            <button class="button">Ordenar</button>
+                            <button class="button">Exportar</button>
+                        </div>
+                        <table class="table">
+                            <!-- Table header -->
+                            <thead class="thead">
+                                <tr>
+                                    <th class="th"> Segmento</th>
+                                    <th class="th"> Produto</th>
+                                    <th class="th"> Marca</th>
+                                    <th class="th"> Loja</th>
+                                    <th class="th"> Pagamento</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody">
+                                <tr class="tr">
+                                    <td class="td">Notebook</td>
+                                    <td class="td">Lenovo 82MD0007BR IdeaPad 3i i5</td>
+                                    <td class="td">Lenovo</td>
+                                    <td class="td">Magalu<br>
+                                        <a href="#" class="link">Visualizar</a>
+                                    </td>
+                                    <td class="td">R$4999,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Pagination -->
+                        <div style="pagination"></div>
+                            <div class="pagination-container">
+                                <button id="prev" class="pagination-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button class="pagination-circle active">1</button>
+                                <button class="pagination-circle">2</button>
+                                <button class="pagination-circle">3</button>
+                                <button id="next" class="pagination-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script>
+            function aplicarFiltros() {
+                let categoriasSelecionadas = Array.from(document.querySelectorAll('.subcategoria-checkbox:checked')).map(checkbox => checkbox.value);
+                let caracteristicasSelecionadas = Array.from(document.querySelectorAll('.subcategoria-checkbox-caracteristicas:checked')).map(checkbox => checkbox.value);
+
+            
+                console.log("Categorias Selecionadas:", categoriasSelecionadas);
+                console.log("Características Selecionadas:", caracteristicasSelecionadas);
+            
+                // Implemente a lógica de filtragem com base nas categorias e características selecionadas
+            }
+            
+            // Adicionar listeners após a geração do HTML
+            function adicionarListenersFiltros() {
+                document.querySelectorAll('.subcategoria-checkbox, .subcategoria-checkbox-caracteristicas').forEach(checkbox => {
+                    checkbox.addEventListener('change', aplicarFiltros);
+                });
+            }
+            
+        </script>  
+    </body>
+</html>

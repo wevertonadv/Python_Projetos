@@ -1,0 +1,3 @@
+rodar com python server
+
+python -m http.server 
