@@ -1,7 +1,9 @@
-# Estruturas de repetição repete quando vezes eu quiser.
+# Estruturas de repetição, repete quando vezes eu quiser.
 
-# WHILE: O laço while é conhecido por repetir o mesmo bloco de código desde que uma determinada condição seja verdadeira.
-# WHILE quer dizer Enquanto determinada condição for verdeira <condição>
+    # WHILE: O laço while é conhecido por repetir o mesmo bloco de código desde que uma determinada 
+    # condição seja verdadeira.
+    
+    # WHILE quer dizer Enquanto determinada condição for verdeira <condição>
 
 contador =0
 while contador  <= 3:
